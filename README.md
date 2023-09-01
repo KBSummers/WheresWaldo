@@ -1,6 +1,8 @@
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+In order to run this program, you will need to install the [Java Development Kit](https://www.oracle.com/java/technologies/downloads/#jdk20-windows).
+This is provided by the Orcale foundation and is lightweight and safe to install.
+
 
 ## Folder Structure
 

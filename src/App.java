@@ -388,9 +388,9 @@ public class App {
                     stopUpdating = true;
                 t.restart();
                 }
-                else if (imageNo <11){
-                    jumpscare();
-                }
+                // else if (imageNo <11){
+                //     jumpscare();
+                // }
             }
         });
         t.setInitialDelay(0);
