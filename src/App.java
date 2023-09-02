@@ -40,6 +40,7 @@ import javax.swing.JLabel;
  * It has no menu-related event handling.
  */
 class ImageStats{
+    int imageID = -1;
     int numClicks = 0;
     boolean levelPaseed = false;
     double timeSpent = 0.0;
@@ -117,72 +118,72 @@ public class App {
 
         return result.toString();
     }
-    public void jumpscare(){
-        JLabel label1 = new JLabel();
-        String scarypath = String.format("../images/jumpscare.jpeg");
-        label1.setIcon(new ImageIcon(scarypath));
-        Dimension size = label1.getPreferredSize(); //Gets the size of the image
-        label1.setBounds(50, 30, size.width, size.height);
-        // new Thread(new Runnable() {
-        // // The wrapper thread is unnecessary, unless it blocks on the
-        // // Clip finishing; see comments.
-        //     public void run() {
-        //     try {
-        //         Clip clip = AudioSystem.getClip();
-        //         AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream("./audio/crash.wav"));
-        //         clip.open(inputStream);
-        //         clip.start(); 
-        //     } catch (Exception e) {
-        //         System.err.println(e.getMessage());
-        //     }
-        //     }
-        // }).start();
-        new Thread() {
-            int counter = 0;
-            public void run() {
-                try {
-                    File musicpath = new File("../audio/crash.wav");
-                    if (musicpath.exists()){
-                        AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicpath);
-                        Clip clip = AudioSystem.getClip();
-                        clip.open(audioInput);
-                        clip.start();
-                    }
-                    else{
-                        System.out.println("Cant find file");
-                    }
+    // public void jumpscare(){
+    //     JLabel label1 = new JLabel();
+    //     String scarypath = String.format("../images/jumpscare.jpeg");
+    //     label1.setIcon(new ImageIcon(scarypath));
+    //     Dimension size = label1.getPreferredSize(); //Gets the size of the image
+    //     label1.setBounds(50, 30, size.width, size.height);
+    //     // new Thread(new Runnable() {
+    //     // // The wrapper thread is unnecessary, unless it blocks on the
+    //     // // Clip finishing; see comments.
+    //     //     public void run() {
+    //     //     try {
+    //     //         Clip clip = AudioSystem.getClip();
+    //     //         AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream("./audio/crash.wav"));
+    //     //         clip.open(inputStream);
+    //     //         clip.start(); 
+    //     //     } catch (Exception e) {
+    //     //         System.err.println(e.getMessage());
+    //     //     }
+    //     //     }
+    //     // }).start();
+    //     new Thread() {
+    //         int counter = 0;
+    //         public void run() {
+    //             try {
+    //                 File musicpath = new File("../audio/crash.wav");
+    //                 if (musicpath.exists()){
+    //                     AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicpath);
+    //                     Clip clip = AudioSystem.getClip();
+    //                     clip.open(audioInput);
+    //                     clip.start();
+    //                 }
+    //                 else{
+    //                     System.out.println("Cant find file");
+    //                 }
 
-                    // Clip clip = AudioSystem.getClip();
-                    // AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream("../audio/crash.wav"));
-                    // clip.open(inputStream);
-                    // clip.start(); 
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-                while(counter >= 0) {
-                    counter--;
-                    JFrame scaryframe = new JFrame();
-                    JPanel scarypanel = new JPanel();
-                    scarypanel.setBackground(Color.BLACK);
-                    scaryframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    label1.setIcon(new ImageIcon(scarypath));
-                    Dimension size = label1.getPreferredSize(); //Gets the size of the image
-                    label1.setBounds(50, 30, size.width, size.height);
-                    scarypanel.add(label1);
-                    // scarypanel.validate();   
-                    scaryframe.add(scarypanel);
-                    scaryframe.setSize(750, 550);
-                    // scaryframe.setBackground(Color.DARK_GRAY);
-                    scaryframe.setVisible(true);     
-                    try{
-                        Thread.sleep(500);
-                    } catch(Exception e) {}
-                    scaryframe.setVisible(false);
-                    scaryframe.dispose();
-                }
-            }
-        }.start();
-    }
+    //                 // Clip clip = AudioSystem.getClip();
+    //                 // AudioInputStream inputStream = AudioSystem.getAudioInputStream(getClass().getClassLoader().getResourceAsStream("../audio/crash.wav"));
+    //                 // clip.open(inputStream);
+    //                 // clip.start(); 
+    //             } catch (Exception e) {
+    //                 System.err.println(e.getMessage());
+    //             }
+    //             while(counter >= 0) {
+    //                 counter--;
+    //                 JFrame scaryframe = new JFrame();
+    //                 JPanel scarypanel = new JPanel();
+    //                 scarypanel.setBackground(Color.BLACK);
+    //                 scaryframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //                 label1.setIcon(new ImageIcon(scarypath));
+    //                 Dimension size = label1.getPreferredSize(); //Gets the size of the image
+    //                 label1.setBounds(50, 30, size.width, size.height);
+    //                 scarypanel.add(label1);
+    //                 // scarypanel.validate();   
+    //                 scaryframe.add(scarypanel);
+    //                 scaryframe.setSize(750, 550);
+    //                 // scaryframe.setBackground(Color.DARK_GRAY);
+    //                 scaryframe.setVisible(true);     
+    //                 try{
+    //                     Thread.sleep(500);
+    //                 } catch(Exception e) {}
+    //                 scaryframe.setVisible(false);
+    //                 scaryframe.dispose();
+    //             }
+    //         }
+    //     }.start();
+    // }
 
     
     public boolean inBounds(int x, int y, int imageNumber){
@@ -284,7 +285,79 @@ public class App {
         }
         return bounded;
     }
-    public void updateLabel(JPanel panel, int i, JLabel label) {
+
+    public void jumpscare(JPanel panel, JLabel label){
+        // panel.removeAll();
+        // panel.updateUI();
+
+        JLabel label1 = new JLabel();
+        String scarypath = String.format("../images/jumpscare1.jpg");
+        label1.setIcon(new ImageIcon(scarypath));
+        Dimension size = label1.getPreferredSize(); //Gets the size of the image
+        label1.setBounds(50, 30, size.width, size.height);
+        // panel.add(label1);
+        // panel.validate();
+        
+
+
+
+        // Timer t = new Timer(2000, new ActionListener() {
+        //     // ImageStats[] z = App.gameStats;
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+
+
+        //         panel.add(label1);
+        //         panel.validate();
+        //     }
+        // });
+        // t.setRepeats(false);
+        // t.setInitialDelay(0);
+        // t.start();
+
+        new Thread() {
+            int counter = 0;
+            public void run() {
+                try {
+                    File musicpath = new File("../audio/crash.wav");
+                    if (musicpath.exists()){
+                        AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicpath);
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInput);
+                        clip.start();
+                    }
+                    else{
+                        System.out.println("Cant find file");
+                    }
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                while(counter >= 0) {
+                    counter--;
+                    JFrame scaryframe = new JFrame();
+                    JPanel scarypanel = new JPanel();
+                    scarypanel.setBackground(Color.BLACK);
+                    scaryframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    label1.setIcon(new ImageIcon(scarypath));
+                    Dimension size = label1.getPreferredSize(); //Gets the size of the image
+                    label1.setBounds(50, 30, size.width, size.height);
+                    // panel.add(label1);
+                    scarypanel.add(label1);
+                    scaryframe.add(scarypanel);
+                    scaryframe.setSize(1300, 850);
+                    scaryframe.setVisible(true);     
+                    try{
+                        Thread.sleep(1800);
+                    } catch(Exception e) {}
+                    scaryframe.setVisible(false);
+                    scaryframe.dispose();
+                    // panel.removeAll();
+
+                }
+            }
+        }.start();
+    }
+    public void updateLabel(JPanel panel, int i, JLabel label, boolean delayChanged) {
         panel.removeAll();
         panel.validate();
         // App.gameStats[this.level-1] = new ImageStats();
@@ -293,13 +366,33 @@ public class App {
             panel.add(lblNewLabel);
             new Thread() {
                 double counter = 30.0;
+                // if (delayChanged) {counter = 32.0;}
                 public void run() {
-                    while(counter >= 0) {
-                        lblNewLabel.setFont(new Font("Verdana", 1, 30));
-                        lblNewLabel.setText("Time Remaining: " + String.format("%.1f",counter = counter -0.1));
-                        try{
-                            Thread.sleep(100);
-                        } catch(Exception e) {}
+                    if (!delayChanged){
+                        while(counter >= 0) {
+                            lblNewLabel.setFont(new Font("Verdana", 1, 30));
+                            lblNewLabel.setText("Time Remaining: " + String.format("%.1f",counter = counter -0.1));
+                            try{
+                                Thread.sleep(100);
+                            } catch(Exception e) {}
+                        }
+                    }
+                    else{
+                        counter = 32.0;
+                        while(counter >= 0) {
+                            if(counter > 30.0) {
+                                lblNewLabel.setFont(new Font("Verdana", 1, 30));
+                                lblNewLabel.setText("Time Remaining: 30.0");
+                                counter = counter -0.1;
+                            }
+                            else{
+                                lblNewLabel.setFont(new Font("Verdana", 1, 30));
+                                lblNewLabel.setText("Time Remaining: " + String.format("%.1f",counter = counter -0.1));
+                            }
+                            try{
+                                Thread.sleep(100);
+                            } catch(Exception e) {}
+                        }
                     }
                 }
             }.start();
@@ -330,25 +423,29 @@ public class App {
         shuffleArray(g);
         int [] a = Arrays.copyOf(g, g.length + 1);
         a[a.length - 1] = 11;
+        for(int i = 0; i < gameStats.length; i++){
+            gameStats[i].imageID = a[i];
+        }
         panel.removeAll();
         panel.updateUI();
         
         int i = 0;
         //ImageStats[] stats = App.gameStats;
-        Timer t = new Timer(32000, new ActionListener() {
+        final Timer t = new Timer(32000, new ActionListener() { //maybe final
             int ii = i;
+            static boolean delayChanged = false;
             // ImageStats[] z = App.gameStats;
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ii == 10){
                     JTable table = new JTable(11, 3);
                     JFrame statFrame = new JFrame("Game Statistics");
-                    Object columns[] = {"Level", "Number of Clicks", "Level Passed"};
+                    Object columns[] = {"ImageID", "Number of Clicks", "Level Passed"};
                     
                     table.setName("Game Statistics");
                     DefaultTableModel model = new DefaultTableModel(columns, 0);
                     for(int i = 0; i < 10; i++){
-                        Object rows[]  = {i+1, App.gameStats[i].numClicks, App.gameStats[i].levelPaseed};
+                        Object rows[]  = {App.gameStats[i].imageID, App.gameStats[i].numClicks, App.gameStats[i].levelPaseed};
                         model.addRow(rows);
                     }
                     table.setModel(model);
@@ -362,12 +459,19 @@ public class App {
                 }
                 if(!stopUpdating && ii > 0 && ii < 11) {
                     App.level++;
-                    jumpscare();
+                    ((Timer)e.getSource()).setDelay(34000);
+                    delayChanged = true;
+                    // ((Timer)e.getSource()).stop();
+                    jumpscare(panel, label);
+                    // ((Timer)e.getSource()).start();
                 }
                 stopUpdating = false;
                 if (!stopUpdating && ii < 11) {
                     // jumpscare();
-                    updateLabel(panel, a[ii], label);
+                    if(((Timer)e.getSource()).getDelay() == 32000){
+                        delayChanged = false;
+                    }
+                    updateLabel(panel, a[ii], label, delayChanged);
                 }
                 ii++;
             }
@@ -386,11 +490,11 @@ public class App {
                 if(inBounds(x, y, imageNo)){
                     //System.out.println(extractNumbers(label.getIcon().toString()));
                     stopUpdating = true;
+                    t.setDelay(32000);
+                // t.setDelay(0);
                 t.restart();
                 }
-                // else if (imageNo <11){
-                //     jumpscare();
-                // }
+
             }
         });
         t.setInitialDelay(0);
