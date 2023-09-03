@@ -21,7 +21,8 @@ Now to run the program, simply type `java App` into the powershell environment.
 
 For a mac user, simply open your terminal by pressing `command + SPACE` and typing `Terminal` in. Now, assuming you have downloaded the zipped folder into your downloads folder, and have the newest Java version downloaded, type `cd ~/Downloads/WheresWaldo/bin`, then enter `java App` to begin firing the program.
 
-
+## Demo Walkthrough
+[![Demo Walkthrough](https://img.youtube.com/vi/rfXs34-VycE/0.jpg)](https://www.youtube.com/watch?v=rfXs34-VycE)
 
 ## Folder Structure
 
